@@ -1,4 +1,8 @@
 {
+	"config": {
+		"width": 640,
+		"height": 380
+	},
     "pathImage": "asset/image/",
     "assets": [
         "asset/image/test.png"
