@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
-import Transform from './../../tinyecs/Transform'
-import Movement from './../component/Movement'
+import Transform from '@/core/tinyecs/Transform'
+import Movement from '@/component/Movement'
 
 export function MovementSystem(entities, width, height) 
 {

@@ -1,15 +1,15 @@
 //import * as PIXI from "pixi.js"
-import preload from "./core/util/preload"
-import { pathImage, assets, config } from "./data/manifest.json"
+import preload from "./core/preload"
+import { pathImage, assets, config } from "./manifest.json"
 
-import EntityManager from "./tinyecs/EntityManager"
-import Messenger from "./tinyecs/Messenger"
+import EntityManager from "./core/tinyecs/EntityManager"
+import Messenger from "./core/tinyecs/Messenger"
 
-import Sprite from "./core/component/Sprite"
-import Movement from "./core/component/Movement"
+import Sprite from "./component/Sprite"
+import Movement from "./component/Movement"
 
-import { PixiSystem } from "./core/system/PixiSystem"
-import { MovementSystem } from "./core/system/MovementSystem"
+import { PixiSystem } from "./system/PixiSystem"
+import { MovementSystem } from "./system/MovementSystem"
 
 const systems = []
 

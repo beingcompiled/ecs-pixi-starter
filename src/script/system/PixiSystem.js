@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
-import Transform from './../../tinyecs/Transform'
-import Sprite from './../component/Sprite'
+import Transform from '@/core/tinyecs/Transform'
+import Sprite from '@/component/Sprite'
 
 export function PixiSystem(entities, width, height) 
 {
