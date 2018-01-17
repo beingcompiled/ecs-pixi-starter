@@ -1,0 +1,1 @@
+Ash Framework courtesy of https://github.com/BrettJephson/ash-js a javascript port of https://github.com/richardlord/Ash
