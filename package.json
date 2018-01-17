@@ -43,7 +43,6 @@
     "install": "^0.10.2",
     "npm": "^5.6.0",
     "pixi.js": "^4.6.2",
-    "script-loader": "^0.7.2",
     "signals": "^1.0.0",
     "style-loader": "^0.19.1",
     "tiny-ecs": "^2.0.0",

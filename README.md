@@ -1,1 +1,3 @@
-Ash Framework courtesy of https://github.com/BrettJephson/ash-js a javascript port of https://github.com/richardlord/Ash
+#Note
+
+Ash Framework javascript port courtesy of https://github.com/BrettJephson/ash-js based on https://github.com/richardlord/Ash
