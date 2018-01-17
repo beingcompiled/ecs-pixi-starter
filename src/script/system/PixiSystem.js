@@ -1,41 +1,72 @@
 import * as PIXI from 'pixi.js'
-import Transform from '@/core/tinyecs/Transform'
-import Sprite from '@/component/Sprite'
 
-export function PixiSystem(entities, width, height) 
-{
-	this.entities = entities
+import Transform from '~/component/Transform'
+import Display from '~/component/Display'
+import RenderNode from '~/node/Render'
 
-	this.renderer = PIXI.autoDetectRenderer(width, height, {
-		antialias: false,
-		transparent: false,
-		resolution: 1
-	})
-	this.renderer.view.className = 'renderer'
+const PixiSystem = Ash.System.extend({
 
-	this.stage = new PIXI.Container()
+	context: null,
+	nodes: null,
 
-	document.getElementById('main').appendChild(this.renderer.view)
+	constructor: function(config) {
 
-	let toUpdate = this.entities.queryComponents([ Transform, Sprite ])
+		this.renderer = PIXI.autoDetectRenderer(config.width, config.height, {
+			antialias: false,
+			transparent: false,
+			resolution: 1
+		})
 
-	toUpdate.forEach((entity) => {
+		this.renderer.view.className = 'renderer'
+
+		this.stage = new PIXI.Container()
+
+		document.getElementById('main').appendChild(this.renderer.view)
+	},
+
+	addToEngine: function (engine) {
+
+		this.nodes = engine.getNodeList(RenderNode);
 		
-		entity.sprite = new PIXI.Sprite(PIXI.loader.resources[entity.sprite.image].texture)
-		entity.sprite.position.set(entity.transform.position.x, entity.transform.position.y)
-		this.stage.addChild(entity.sprite)		
-	})
+		for (var node = this.nodes.head; node; node = node.next) {
+			this.addToDisplay(node);
+		}
+		
+		this.nodes.nodeAdded.add(this.addToDisplay, this);
+		this.nodes.nodeRemoved.add(this.removeFromDisplay, this);
+	},
 
-	this.renderer.render(this.stage)
-}
+	removeFromEngine: function (engine) {
+		this.nodes = null;
+	},
 
-PixiSystem.prototype.update = function() 
-{
-	let toUpdate = this.entities.queryComponents([ Transform, Sprite ])
+	addToDisplay: function (node) {
+		console.log('node: ', node)
+		let display = node.display;
+	    
+		this.stage.addChild(display.view)
+	},
 
-	toUpdate.forEach((entity) => {
-		entity.sprite.position.set(entity.transform.position.x, entity.transform.position.y)
+	removeFromDisplay: function (node) {
+		let display = node.display;
+		
+		this.stage.removeChild(display.view)
+	},
 
-		this.renderer.render(this.stage)		
-	})
-}
+	update: function (time) {
+		
+		var node, transform, display, view;
+
+		for (node = this.nodes.head; node; node = node.next) {
+			view = node.display.view;
+			transform = node.transform;
+			
+			view.position.set(transform.position.x, transform.position.y)
+			view.rotation = transform.rotation
+		}
+
+		this.renderer.render(this.stage)
+	}
+})
+
+export default PixiSystem

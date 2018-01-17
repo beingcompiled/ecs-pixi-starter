@@ -3,7 +3,7 @@
 		"width": 640,
 		"height": 380
 	},
-    "pathImage": "asset/image/",
+    "imagesPath": "asset/image/",
     "assets": [
         "asset/image/test.png"
     ]

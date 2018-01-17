@@ -1,9 +1,8 @@
 {
-	"presets": ["es2015"],
+	"presets": ["es2015", "stage-2"],
 	"plugins": ["transform-object-rest-spread",
 		["babel-plugin-root-import", {
-			"rootPathSuffix": "src/script",
-			"rootPathPrefix": "@"
+			"rootPathSuffix": "src/script"
 		}]
 	]
 }

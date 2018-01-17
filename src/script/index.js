@@ -1,73 +1,65 @@
-//import * as PIXI from "pixi.js"
-import preload from "./core/preload"
-import { pathImage, assets, config } from "./manifest.json"
+import { imagesPath, assets, config } from './manifest.json'
 
-import EntityManager from "./core/tinyecs/EntityManager"
-import Messenger from "./core/tinyecs/Messenger"
+import preload from './core/Preload'
+import Loop from './core/Loop'
 
-import Sprite from "./component/Sprite"
-import Movement from "./component/Movement"
+import EntityCreator from './EntityCreator'
 
-import { PixiSystem } from "./system/PixiSystem"
-import { MovementSystem } from "./system/MovementSystem"
+import { SystemPriorities } from './system/SystemPriorities'
+import PixiSystem from './system/PixiSystem'
+import MotionSystem from './system/MotionSystem'
 
-const systems = []
+import GameState from './component/GameState'
 
-/*
+export default class Game {
 
+	constructor(canvas) {
 
-	LOOP
+		this.loop = new Loop()
+		
+		this.engine = new Ash.Engine()
 
+		this.state = new GameState(config.width, config.height)
 
-*/
+		this.creator = new EntityCreator(this.engine)
+		 
+		this.engine.addSystem(
+			new MotionSystem(this.state),
+			SystemPriorities.move
+		)
+		this.engine.addSystem(
+			new PixiSystem(config),
+			SystemPriorities.render
+		)
+		console.log('engine: ', this.engine)
 
-const loop = (time) => { //dt, time
+		this.creator.createHero({
+			width: 15,
+			height: 15,
+			radius: 15,
+			position: { x: 100, y: 100 },
+			rotation: 6,
+			speed: 1
+		})
+	}
 
-	requestAnimationFrame(time => loop(time))
-
-	systems.forEach((system) => {
-		system.update()
-	})
-}
-
-/*
-
-
-	BUILD
-
-
-*/
-
-const build = () => {
-	
-	var entityManager = new EntityManager(new Messenger())
-	var hero = entityManager.create()
-	hero.addComponent(Sprite).addComponent(Movement)
-
-	hero.transform.position.x = Math.random() * config.width
-	hero.transform.position.y = Math.random() * config.height
-	hero.sprite.image = pathImage + 'test.png'
-	hero.movement.speed = 3
-	
-	systems.push(
-		new MovementSystem(entityManager, config.width, config.height),
-		new PixiSystem(entityManager, config.width, config.height)	
-	)
-
-	loop(-1)
+	start () {
+		
+		this.loop.add(this.engine.update, this.engine);
+		this.loop.start();
+	}
 }
 
 /* 
 
-
 	INIT 
-
 
 */
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => { 
 
 	preload(assets, () => {
-		build()
+		let game = new Game()
+		game.start()
 	})
 })
