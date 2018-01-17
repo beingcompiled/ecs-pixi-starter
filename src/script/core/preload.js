@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-const preload = (manifest, cb) => {
+const Preload = (manifest, cb) => {
 
     PIXI.loader
         .add(manifest)
@@ -8,4 +8,4 @@ const preload = (manifest, cb) => {
         .load(cb)
 }
 
-export default preload;
+export default Preload;
