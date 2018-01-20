@@ -1,4 +1,4 @@
-import { imagesPath, assets, config } from './manifest.json'
+import { imagesPath, assets } from './manifest.json'
 
 import preload from './core/Preload'
 import Loop from './core/Loop'
@@ -11,6 +11,9 @@ import MotionSystem from './system/MotionSystem'
 
 import GameState from './component/GameState'
 
+import resetStyl from '~/../style/reset.styl'
+import globalStyl from '~/../style/global.styl'
+
 export default class Game {
 
 	constructor(canvas) {
@@ -19,16 +22,16 @@ export default class Game {
 		
 		this.engine = new Ash.Engine()
 
-		this.state = new GameState(config.width, config.height)
+		this.gamestate = new GameState(window.innerWidth, window.innerHeight)
 
 		this.creator = new EntityCreator(this.engine)
 		 
 		this.engine.addSystem(
-			new MotionSystem(this.state),
+			new MotionSystem(this.gamestate),
 			SystemPriorities.move
 		)
 		this.engine.addSystem(
-			new PixiSystem(config),
+			new PixiSystem(this.gamestate),
 			SystemPriorities.render
 		)
 		console.log('engine: ', this.engine)
@@ -39,7 +42,7 @@ export default class Game {
 			radius: 15,
 			position: { x: 100, y: 100 },
 			rotation: 6,
-			speed: 1
+			speed: 2
 		})
 	}
 

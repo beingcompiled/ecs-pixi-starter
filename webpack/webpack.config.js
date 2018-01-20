@@ -40,7 +40,10 @@ module.exports = {
 			node,
 			scripts,
 			assets
-		]
+		],
+		alias: {
+			styl: path.resolve(__dirname, '../src/style/')
+		}
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -55,6 +58,17 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, '../src/template/index.ejs'),
 			title: title
+		}),
+
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				stylus: {
+					import: [
+						path.resolve(__dirname, '../src/style/reset.styl'), 
+						path.resolve(__dirname, '../src/style/global.styl')
+					]
+				}
+			}
 		})
 	],
 	module: {
@@ -88,25 +102,10 @@ module.exports = {
 				]
 			},
 
-			// CSS / SASS
 			{
-				test: /\.scss/,
-				use: [
-					'style-loader',
-					{
-						loader: 'css-loader',
-						options: {
-							sourceMap: IS_DEV
-						}
-					},
-					{
-						loader: 'sass-loader',
-						options: {
-							sourceMap: IS_DEV,
-							includePaths: [assets]
-						}
-					}
-				]
+				
+				test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'
+				
 			},
 
 			// EJS

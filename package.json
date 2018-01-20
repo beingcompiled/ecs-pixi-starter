@@ -45,6 +45,8 @@
     "pixi.js": "^4.6.2",
     "signals": "^1.0.0",
     "style-loader": "^0.19.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "tiny-ecs": "^2.0.0",
     "typedef": "^1.1.0",
     "url-loader": "^0.6.2",

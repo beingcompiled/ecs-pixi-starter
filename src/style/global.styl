@@ -1,0 +1,149 @@
+/*
+
+IMPORTED GLOBALY webpack.base.conf.js
+
+plugins: [
+  new webpack.LoaderOptionsPlugin({
+	options: {
+	  stylus: {
+		import: [path.resolve(__dirname, '../src/assets/stylus/global.styl')]
+	  }
+	}
+  })
+]
+
+*/
+
+/*
+
+	VARIABLES
+
+*/
+
+$sm = 15px
+$md = 25px
+$lg = 50px
+$xl = 100px
+
+$colorDark = #222222
+$colorMedium = #444444
+$colorLight = #FFFFFF
+$colorTransparency = rgba(0,0,0,0.5)
+$colorBtn = #2481ce
+
+/*
+
+	RESET
+	
+*/
+
+body
+	margin 0
+	padding 0
+	border 0
+
+a, a:active, a:visited
+	color white
+	text-decoration none
+	
+#app
+	font-family 'Avenir', Helvetica, Arial, sans-serif
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+	text-align center
+	color $colorDark
+	
+/*
+
+	FONT_FACE
+
+*/
+
+	// $fontpath = '~@/assets/fonts/'
+
+	// font-face(fontFamily, path, fileName, svgLabel, fontWeight = normal, fontStyle = normal)
+	// 	@font-face
+	// 		font-family fontFamily
+	// 		src url(path + fileName + '.eot')
+	// 		src url(path + fileName + '.eot?#iefix') format("embedded-opentype"),
+	// 			url(path + fileName + '.woff') format("woff"),
+	// 			url(path + fileName + '.ttf') format("truetype"),
+	// 			url(path + fileName + '.svg#' + svgLabel) format("svg")
+	// 		font-weight fontWeight
+	// 		font-style fontStyle
+			
+	// $fontRegular = 'Geomanist Regular'
+
+	// font-face($fontRegular, $fontpath, 'geomanist-regular-webfont', 'geomanist-regular-webfont')
+
+	// h1, h2, h3, p, a
+	// 	font-family $fontRegular
+		
+/*
+
+	STRUCTURE
+
+*/
+
+.spacer
+	display block
+	padding $sm 0
+	&--md
+		padding $md 0
+	&--lg
+		padding $lg 0
+	&--xl
+		padding $xl 0
+
+.content 
+	position absolute
+	top 50%
+	left 50%
+	transform translate(-50%, -50%)
+	text-align center
+	
+.icon
+	pointer-events none
+	display block
+	width $md
+	height $md
+	padding 10px 0
+	
+	&--lg
+		width $xl
+		height $xl
+		padding 10px 0 $md 0
+		
+/*
+
+	SKIN
+	
+*/
+
+.btn
+	cursor pointer
+	border-radius 8px
+	background $colorBtn
+	padding 10px 20px 10px 20px
+	
+	font-size 0.7em
+	letter-spacing 0.3em
+	text-transform uppercase
+	text-decoration none
+	
+	transition all 0.3s
+
+	&:hover
+		background darken($colorBtn, 15)
+
+/*
+
+	ANIMATIONS
+
+*/
+
+.fade-enter-active, .fade-leave-active
+	transition opacity 0.3s
+
+.fade-enter, .fade-leave-active
+	opacity 0
